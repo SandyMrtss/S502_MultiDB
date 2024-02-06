@@ -8,7 +8,5 @@ import java.util.List;
 
 @Repository
 public interface GameRepository extends MongoRepository<GameHistory, Integer> {
-    public List<GameHistory> findByPlayerId(Integer playerId);
-
-    public void deleteByPlayerId(Integer playerId);
+    List<GameHistory> findByPlayerId(Integer playerId);
 }

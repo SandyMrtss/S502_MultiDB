@@ -7,10 +7,10 @@ import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.dto.GameDTO;
 import java.util.List;
 
 public interface GameService {
-    public void addGameHistory(Integer id);
-    public GameDTO addGame(Integer id);
-    public List<GameDTO> getAllGames(Integer id);
-    public void deleteAllGames(Integer id);
-    public Double getSuccessRate(Integer id);
-    public GameDTO gameToDTO(Game game);
+    void addGameHistory(Integer id);
+    GameDTO addGame(Integer id);
+    List<GameDTO> getAllGames(Integer id);
+    void deleteAllGames(Integer id);
+    Double getSuccessRate(Integer id);
+    GameDTO gameToDTO(Game game);
 }

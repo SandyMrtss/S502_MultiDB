@@ -15,7 +15,7 @@ import java.util.NoSuchElementException;
 
 @Service
 public class GameServiceImpl implements GameService {
-    GameRepository gameRepository;
+    private GameRepository gameRepository;
 
     public GameServiceImpl(GameRepository gameRepository){
         this.gameRepository = gameRepository;

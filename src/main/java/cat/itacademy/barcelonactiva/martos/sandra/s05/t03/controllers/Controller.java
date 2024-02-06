@@ -26,6 +26,12 @@ public class Controller {
         return new ResponseEntity<>("Player added successfully", HttpStatus.OK);
     }
 
+    @GetMapping("")
+    public ResponseEntity<List<PlayerDTO>> getAllSuccessRate(){
+        List<PlayerDTO> playerDTOList = playerService.getAllSuccessRate();
+        return new ResponseEntity <>(playerDTOList, HttpStatus.OK);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<String> updatePlayer(@PathVariable("id") Integer id, PlayerDTORequest playerDTORequest){
         playerService.updatePlayer(id, playerDTORequest);
@@ -34,7 +40,7 @@ public class Controller {
 
     @PostMapping("/{id}/games")
     public ResponseEntity<GameDTO> play(@PathVariable("id") Integer id){
-        GameDTO newGame = playerService.addGame(id);
+        GameDTO newGame = playerService.playGame(id);
         return new ResponseEntity<>(newGame, HttpStatus.OK);
     }
 
@@ -44,11 +50,7 @@ public class Controller {
         return new ResponseEntity<>("All games deleted successfully", HttpStatus.OK);
     }
 
-    @GetMapping("")
-    public ResponseEntity<List<PlayerDTO>> getAllSuccessRate(){
-        List<PlayerDTO> playerDTOList = playerService.getAllSuccessRate();
-        return new ResponseEntity <>(playerDTOList, HttpStatus.OK);
-    }
+
 
     @GetMapping("/{id}/games")
     public ResponseEntity<List<GameDTO>> getAllGames(@PathVariable("id") Integer id){
