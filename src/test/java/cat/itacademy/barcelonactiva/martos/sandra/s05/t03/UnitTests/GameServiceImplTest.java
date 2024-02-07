@@ -1,9 +1,11 @@
 package cat.itacademy.barcelonactiva.martos.sandra.s05.t03.UnitTests;
 
+import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.exceptions.NoGamesPlayedException;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.domain.Game;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.domain.GameHistory;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.domain.PlayerEntity;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.dto.GameDTO;
+import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.dto.PlayerDTO;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.repository.GameRepository;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.services.GameService;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.services.impl.GameServiceImpl;
@@ -29,25 +31,44 @@ public class GameServiceImplTest {
     private GameService gameService = new GameServiceImpl(gameRepository);
 
     private PlayerEntity playerEntity;
+    private PlayerEntity playerEmpty;
+    private List<PlayerEntity> allPlayers;
     private List<Game> listGame;
+    private List<Game> listEmpty;
     private GameHistory gameHistory;
+    private GameHistory gameEmpty;
 
     @BeforeEach
     void setup(){
         playerEntity = new PlayerEntity("sandy");
+        playerEntity.setId(1);
+        playerEmpty = new PlayerEntity("maya");
+        playerEmpty.setId(2);
+
+        allPlayers = new ArrayList<>();
+        allPlayers.add(playerEntity);
+        allPlayers.add(playerEmpty);
+
         Game game1 = new Game(1,3);
         Game game2 = new Game(1,6);
         Game game3 = new Game(4,2);
         Game game4 = new Game(2,2);
 
         listGame = new ArrayList<>();
+        listEmpty = new ArrayList<>();
+
         listGame.add(game1);
         listGame.add(game2);
         listGame.add(game3);
         listGame.add(game4);
+
         gameHistory = new GameHistory(1);
+        gameEmpty = new GameHistory(2);
+
         gameHistory.setAllGames(listGame);
         gameHistory.setSuccessRate(25.0);
+        gameEmpty.setAllGames(listEmpty);
+        gameEmpty.setSuccessRate(null);
     }
 
     @Test
@@ -85,7 +106,23 @@ public class GameServiceImplTest {
         else {
             expected = 20.0;
         }
-        assertEquals(gameHistory.getSuccessRate(), expected);
+        assertEquals(expected, gameHistory.getSuccessRate());
+    }
+
+    @Test
+    @DisplayName("Test new game updates successRate (first game)")
+    void  testUpdateGameHistoryFirstGame(){
+        Mockito.when(gameRepository.findByPlayerId(2)).thenReturn(gameEmpty);
+        GameDTO newGame = gameService.addGame(2);
+
+        double expected;
+        if(newGame.isWin()) {
+            expected = 100.0;
+        }
+        else {
+            expected = 0.0;
+        }
+        assertEquals(expected, gameEmpty.getSuccessRate());
     }
 
     @Test
@@ -124,4 +161,5 @@ public class GameServiceImplTest {
         double actual = gameService.getSuccessRate(1);
         assertEquals(gameHistory.getSuccessRate(), actual);
     }
+
 }
