@@ -21,7 +21,8 @@ public class GameServiceImpl implements GameService {
         this.gameRepository = gameRepository;
     }
 
-    private Game newGame() {
+    @Override
+    public Game newGame() {
         return new Game(RandomDiceGenerator.newRandomDice(), RandomDiceGenerator.newRandomDice());
     }
 
@@ -33,7 +34,7 @@ public class GameServiceImpl implements GameService {
     @Override
     public GameDTO addGame(Integer id){
         Game game = newGame();
-        GameHistory gameHistory= gameRepository.findByPlayerId(id).get(0);
+        GameHistory gameHistory= gameRepository.findByPlayerId(id);
         updateGameHistory(gameHistory, game);
         return gameToDTO(game);
     }
@@ -84,7 +85,7 @@ public class GameServiceImpl implements GameService {
 
     private GameHistory getGameHistoryById(Integer id){
         try{
-            return gameRepository.findByPlayerId(id).get(0);
+            return gameRepository.findByPlayerId(id);
         }catch (NoSuchElementException ex){
             throw new PlayerNotFoundException();
         }

@@ -1,6 +1,7 @@
 package cat.itacademy.barcelonactiva.martos.sandra.s05.t03.UnitTests;
 
-import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.domain.GameEntity;
+import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.domain.Game;
+import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.domain.GameHistory;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.domain.PlayerEntity;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.dto.GameDTO;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.repository.GameRepository;
@@ -19,7 +20,6 @@ import java.util.*;
 
 
 import static org.junit.jupiter.api.Assertions.*;
-
 @ExtendWith(MockitoExtension.class)
 public class GameServiceImplTest {
 
@@ -29,83 +29,99 @@ public class GameServiceImplTest {
     private GameService gameService = new GameServiceImpl(gameRepository);
 
     private PlayerEntity playerEntity;
-    private List<GameEntity> listGameEntity;
+    private List<Game> listGame;
+    private GameHistory gameHistory;
 
     @BeforeEach
     void setup(){
         playerEntity = new PlayerEntity("sandy");
-        GameEntity game1 = new GameEntity(playerEntity, 1,3);
-        GameEntity game2 = new GameEntity(playerEntity, 1,6);
-        GameEntity game3 = new GameEntity(playerEntity, 4,2);
-        GameEntity game4 = new GameEntity(playerEntity, 2,2);
+        Game game1 = new Game(1,3);
+        Game game2 = new Game(1,6);
+        Game game3 = new Game(4,2);
+        Game game4 = new Game(2,2);
 
-        listGameEntity = new ArrayList<>();
-        listGameEntity.add(game1);
-        listGameEntity.add(game2);
-        listGameEntity.add(game3);
-        listGameEntity.add(game4);
+        listGame = new ArrayList<>();
+        listGame.add(game1);
+        listGame.add(game2);
+        listGame.add(game3);
+        listGame.add(game4);
+        gameHistory = new GameHistory(1);
+        gameHistory.setAllGames(listGame);
+        gameHistory.setSuccessRate(25.0);
     }
 
     @Test
-    @DisplayName("GameDTO to GameEntity works")
+    @DisplayName("Game to GameDTO")
     void testGameDTOToEntity(){
-        GameDTO game = new GameDTO(RandomDiceGenerator.newRandomDice(), RandomDiceGenerator.newRandomDice());
-        GameEntity gameEntity = gameService.gameDTOToEntity(playerEntity, game);
-        assertTrue(game.getDice1() == gameEntity.getDice1()
-                && game.getDice2() == gameEntity.getDice2()
-                && gameEntity.getPlayerEntity().equals(playerEntity));
-    }
+        Game game = new Game(RandomDiceGenerator.newRandomDice(), RandomDiceGenerator.newRandomDice());
+        GameDTO gameDTO = gameService.gameToDTO(game);
+        boolean expected = game.getDice1() + game.getDice2() == 7;
+        assertTrue(game.getDice1() == gameDTO.getDice1()
+                && game.getDice2() == gameDTO.getDice2()
+                && gameDTO.isWin() == expected);
 
-    @Test
-    @DisplayName("GameEntity to GameDTO works")
-    void testGameEntityToDTO(){
-        GameEntity gameEntity = new GameEntity(playerEntity, 3,2);
-        GameDTO  gameDTO = gameService.gameEntityToDTO(gameEntity);
-        assertTrue(gameDTO.getDice1() == gameEntity.getDice1()
-                && gameDTO.getDice2() == gameEntity.getDice2()
-                && !gameDTO.isWin());
     }
-
     @Test
     @DisplayName("New game creation")
     void testAddGame(){
-        GameDTO newGame = gameService.addGame(playerEntity);
-        listGameEntity.add(gameService.gameDTOToEntity(playerEntity, newGame));
+        Mockito.when(gameRepository.findByPlayerId(1)).thenReturn(gameHistory);
 
-        Mockito.when(gameRepository.findByPlayerEntity(playerEntity)).thenReturn(listGameEntity);
+        GameDTO newGame = gameService.addGame(1);
+        listGame.add(new Game(newGame.getDice1(), newGame.getDice2()));
 
-        List<GameDTO> actualList = gameService.getAllGames(playerEntity);
+        List<GameDTO> actualList = gameService.getAllGames(1);
+        assertTrue(new ReflectionEquals(listGame).matches(actualList));
+   }
+
+    @Test
+    @DisplayName("Test new game updates successRate")
+    void  testUpdateGameHistory(){
+        Mockito.when(gameRepository.findByPlayerId(1)).thenReturn(gameHistory);
+        GameDTO newGame = gameService.addGame(1);
+        double expected;
+        if(newGame.isWin()) {
+            expected = 40.0;
+        }
+        else {
+            expected = 20.0;
+        }
+        assertEquals(gameHistory.getSuccessRate(), expected);
     }
 
     @Test
     @DisplayName("List all games for player")
     void testGetAllGames(){
-        Mockito.when(gameRepository.findByPlayerEntity(playerEntity))
-                .thenReturn(listGameEntity);
+        Mockito.when(gameRepository.findByPlayerId(1))
+                .thenReturn(gameHistory);
 
-        List<GameDTO> actual = gameService.getAllGames(playerEntity);
+        List<GameDTO> actual = gameService.getAllGames(1);
 
-        List<GameEntity> actualEntity = new ArrayList<>();
-        actual.forEach(g-> actualEntity.add(gameService.gameDTOToEntity(playerEntity, g)));
+        List<Game> expected = gameHistory.getAllGames();
 
-        assertTrue(new ReflectionEquals(listGameEntity).matches(actualEntity));
+        assertTrue(new ReflectionEquals(expected).matches(actual));
     }
 
     @Test
     @DisplayName("All games from player deleted successfully")
     void testDeleteAllGames(){
-        gameService.deleteAllGames(playerEntity);
-        Mockito.verify(gameRepository).deleteByPlayerEntity(playerEntity);
+        GameHistory newHistory = new GameHistory(2);
+        List<Game> newList = new ArrayList<>();
+        newList.add(new Game(1,3));
+        newHistory.setAllGames(newList);
+
+        Mockito.when(gameRepository.findByPlayerId(2)).thenReturn(newHistory);
+        gameService.deleteAllGames(2);
+        List<GameDTO> actual = gameService.getAllGames(2);
+
+        assertTrue(new ReflectionEquals(new ArrayList<>()).matches(actual));
     }
 
     @Test
-    @DisplayName("Gets proper success rate")
+    @DisplayName("Get success rate works")
     void testGetSuccessRate(){
-        double expected = 25.0;
-        Mockito.when(gameRepository.calcAverageByPlayerEntity(playerEntity))
-                .thenReturn(expected);
-        double actual = gameService.getSuccessRate(playerEntity);
+        Mockito.when(gameRepository.findByPlayerId(1)).thenReturn(gameHistory);
 
-        assertEquals(Math.round(expected), Math.round(actual));
+        double actual = gameService.getSuccessRate(1);
+        assertEquals(gameHistory.getSuccessRate(), actual);
     }
 }
