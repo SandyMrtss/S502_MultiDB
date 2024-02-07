@@ -23,7 +23,7 @@ public class Controller {
     @PostMapping("")
     public ResponseEntity<String> newPlayer(@RequestBody PlayerDTORequest playerDTORequest){
         playerService.addPlayer(playerDTORequest);
-        return new ResponseEntity<>("Player added successfully", HttpStatus.OK);
+        return new ResponseEntity<>("Player added successfully", HttpStatus.CREATED);
     }
 
     @GetMapping("")
@@ -33,7 +33,7 @@ public class Controller {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updatePlayer(@PathVariable("id") Integer id, PlayerDTORequest playerDTORequest){
+    public ResponseEntity<String> updatePlayer(@PathVariable("id") Integer id, @RequestBody PlayerDTORequest playerDTORequest){
         playerService.updatePlayer(id, playerDTORequest);
         return new ResponseEntity<>("Player updated successfully", HttpStatus.OK);
     }

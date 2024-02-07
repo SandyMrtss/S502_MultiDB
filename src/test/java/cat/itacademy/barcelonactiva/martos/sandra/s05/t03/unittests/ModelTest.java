@@ -1,4 +1,4 @@
-package cat.itacademy.barcelonactiva.martos.sandra.s05.t03.UnitTests;
+package cat.itacademy.barcelonactiva.martos.sandra.s05.t03.unittests;
 
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.dto.GameDTO;
 import org.junit.jupiter.api.DisplayName;

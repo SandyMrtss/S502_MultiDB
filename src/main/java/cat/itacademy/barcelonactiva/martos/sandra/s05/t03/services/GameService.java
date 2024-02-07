@@ -7,6 +7,7 @@ import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.dto.GameDTO;
 import java.util.List;
 
 public interface GameService {
+    Game newGame();
     void addGameHistory(Integer id);
     GameDTO addGame(Integer id);
     List<GameDTO> getAllGames(Integer id);

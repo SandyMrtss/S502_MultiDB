@@ -19,10 +19,12 @@ import java.util.*;
 public class PlayerServiceImpl implements PlayerService {
     private PlayerRepository playerRepository;
     private GameService gameService;
+
     public PlayerServiceImpl(PlayerRepository playerRepository, GameService gameService){
         this.playerRepository = playerRepository;
         this.gameService = gameService;
     }
+
     @Override
     public void addPlayer(PlayerDTORequest playerDTORequest) {
         PlayerEntity playerEntity = playerDTOToEntity(playerDTORequest);
