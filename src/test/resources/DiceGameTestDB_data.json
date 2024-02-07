@@ -1,0 +1,60 @@
+[
+  {
+    "playerId": 1,
+    "allGames": [
+      {
+        "dice1": 4,
+        "dice2": 3
+      },
+      {
+        "dice1": 2,
+        "dice2": 5
+      },
+      {
+        "dice1": 1,
+        "dice2": 6
+      }
+    ],
+    "successRate": 100.0,
+    "_class": "cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.domain.GameHistory"
+  },
+  {
+    "playerId": 2,
+    "allGames": [
+      {
+        "dice1": 2,
+        "dice2": 3
+      },
+      {
+        "dice1": 6,
+        "dice2": 4
+      },
+      {
+        "dice1": 3,
+        "dice2": 4
+      }
+    ],
+    "successRate": 33.33,
+    "_class": "cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.domain.GameHistory"
+  },
+  {
+    "playerId": 4,
+    "allGames": [
+      {
+        "dice1": 2,
+        "dice2": 5
+      },
+      {
+        "dice1": 4,
+        "dice2": 5
+      }
+    ],
+    "successRate": 50.0,
+    "_class": "cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.domain.GameHistory"
+  },
+  {
+    "playerId": 3,
+    "allGames": [],
+    "_class": "cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.domain.GameHistory"
+  }
+]

@@ -74,12 +74,16 @@ public class GameServiceImpl implements GameService {
     public void deleteAllGames(Integer id) {
         GameHistory gameHistory = getGameHistoryById(id);
         gameHistory.setAllGames(new ArrayList<>());
+        gameHistory.setSuccessRate(null);
         gameRepository.save(gameHistory);
     }
 
     @Override
     public Double getSuccessRate(Integer id){
         GameHistory gameHistory = getGameHistoryById(id);
+        if(gameHistory.getSuccessRate() == null){
+            return null;
+        }
         return gameHistory.getSuccessRate();
     }
 

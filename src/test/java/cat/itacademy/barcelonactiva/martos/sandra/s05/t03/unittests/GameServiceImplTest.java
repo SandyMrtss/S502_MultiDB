@@ -1,11 +1,9 @@
-package cat.itacademy.barcelonactiva.martos.sandra.s05.t03.UnitTests;
+package cat.itacademy.barcelonactiva.martos.sandra.s05.t03.unittests;
 
-import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.exceptions.NoGamesPlayedException;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.domain.Game;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.domain.GameHistory;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.domain.PlayerEntity;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.dto.GameDTO;
-import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.dto.PlayerDTO;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.repository.GameRepository;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.services.GameService;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.services.impl.GameServiceImpl;
