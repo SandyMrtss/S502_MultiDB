@@ -39,7 +39,7 @@ public class DiceGameControllerIntegrationTest {
     @Test
     @Order(1)
     void whenGetWinner_thenReturnStatusOkAndWinner() throws Exception {
-        mockMvc.perform(get("/diceGame/v1/players/ranking/winner"))
+        mockMvc.perform(get("/api/v1/diceGame/players/ranking/winner"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -51,7 +51,7 @@ public class DiceGameControllerIntegrationTest {
     @Test
     @Order(2)
     void whenGetLoser_thenReturnStatusOkAndLoser() throws Exception {
-        mockMvc.perform(get("/diceGame/v1/players/ranking/loser"))
+        mockMvc.perform(get("/api/v1/diceGame/players/ranking/loser"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -63,7 +63,7 @@ public class DiceGameControllerIntegrationTest {
     @Test
     @Order(3)
     void whenGetAllSuccessRate_thenReturnStatusOkAndSuccessRateList() throws Exception {
-        mockMvc.perform(get("/diceGame/v1/players")
+        mockMvc.perform(get("/api/v1/diceGame/players")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -74,7 +74,7 @@ public class DiceGameControllerIntegrationTest {
     @Test
     @Order(4)
     void whenGetRanking_thenReturnStatusOkAndSuccessRateList() throws Exception {
-        mockMvc.perform(get("/diceGame/v1/players/ranking")
+        mockMvc.perform(get("/api/v1/diceGame/players/ranking")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -86,10 +86,9 @@ public class DiceGameControllerIntegrationTest {
     @Order(5)
     void whenNewPlayer_thenReturnStatusCreatedAndMessage() throws Exception {
         PlayerDTORequest newPlayer = new PlayerDTORequest("juan");
-        mockMvc.perform(post("/diceGame/v1/players")
+        mockMvc.perform(post("/api/v1/diceGame/players")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(newPlayer)))
-                //.with(csrf()))
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$").value("Player added successfully"));
@@ -100,10 +99,9 @@ public class DiceGameControllerIntegrationTest {
     @Order(6)
     void whenNewPlayerExists_thenReturnStatusConflictAndException() throws Exception {
         PlayerDTORequest newPlayer = new PlayerDTORequest("javi");
-        mockMvc.perform(post("/diceGame/v1/players")
+        mockMvc.perform(post("/api/v1/diceGame/players")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(newPlayer)))
-                //.with(csrf()))
                 .andDo(print())
                 .andExpect(status().isConflict())
                 .andExpect(jsonPath("$").value("Username already used"));
@@ -115,10 +113,9 @@ public class DiceGameControllerIntegrationTest {
     @Order(7)
     void whenUpdatePlayer_thenReturnStatusOkAndMessage() throws Exception {
         PlayerDTORequest updatedPlayer = new PlayerDTORequest("javis");
-        mockMvc.perform(put("/diceGame/v1/players/{id}", 4)
+        mockMvc.perform(put("/api/v1/diceGame/players/{id}", 4)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updatedPlayer)))
-                //.with(csrf()))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").value("Player updated successfully"));
@@ -129,10 +126,9 @@ public class DiceGameControllerIntegrationTest {
     @Order(8)
     void whenUpdatePlayerDuplicated_thenReturnStatusOkAndMessage() throws Exception {
         PlayerDTORequest updatedPlayer = new PlayerDTORequest("sandy");
-        mockMvc.perform(put("/diceGame/v1/players/{id}", 4)
+        mockMvc.perform(put("/api/v1/diceGame/players/{id}", 4)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString("sandy")))
-                //.with(csrf()))
                 .andDo(print())
                 .andExpect(status().isConflict())
                 .andExpect(jsonPath("$").value("Username already used"));
@@ -142,9 +138,8 @@ public class DiceGameControllerIntegrationTest {
     @Test
     @Order(9)
     void whenPlayGame_thenReturnStatusOkAndGame() throws Exception {
-        mockMvc.perform(post("/diceGame/v1/players/{id}/games", 3)
+        mockMvc.perform(post("/api/v1/diceGame/players/{id}/games", 3)
                         .contentType(MediaType.APPLICATION_JSON))
-                //.with(csrf()))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.dice1").isNumber())
@@ -157,9 +152,8 @@ public class DiceGameControllerIntegrationTest {
     @Test
     @Order(10)
     void whenPlayGameUserNotFound_thenReturnStatusNotFound() throws Exception {
-        mockMvc.perform(post("/diceGame/v1/players/{id}/games", 45)
+        mockMvc.perform(post("/api/v1/diceGame/players/{id}/games", 45)
                         .contentType(MediaType.APPLICATION_JSON))
-                //.with(csrf()))
                 .andDo(print())
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$").value("No player was found with the chosen id"));
@@ -169,7 +163,7 @@ public class DiceGameControllerIntegrationTest {
     @Test
     @Order(11)
     void whenGetAllGames_thenReturnStatusOkAndList() throws Exception {
-        mockMvc.perform(get("/diceGame/v1/players/{id}/games", 4)
+        mockMvc.perform(get("/api/v1/diceGame/players/{id}/games", 4)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -180,7 +174,7 @@ public class DiceGameControllerIntegrationTest {
     @Test
     @Order(12)
     void whenDeleteAllGames_thenReturnStatusOkAndMessage() throws Exception {
-        mockMvc.perform(delete("/diceGame/v1/players/{id}/games", 4)
+        mockMvc.perform(delete("/api/v1/diceGame/players/{id}/games", 4)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -191,7 +185,7 @@ public class DiceGameControllerIntegrationTest {
     @Test
     @Order(13)
     void whenGetAllGamesEmpty_thenReturnStatusOkAndEmptyList() throws Exception {
-        mockMvc.perform(get("/diceGame/v1/players/{id}/games", 4)
+        mockMvc.perform(get("/api/v1/diceGame/players/{id}/games", 4)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())

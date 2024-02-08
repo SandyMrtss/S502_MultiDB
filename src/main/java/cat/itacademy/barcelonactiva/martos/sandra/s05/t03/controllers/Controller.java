@@ -12,7 +12,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:9000")
 @RestController
-@RequestMapping("/diceGame/v1/players")
+@RequestMapping("api/v1/diceGame/players")
 public class Controller {
     private PlayerService playerService;
 
