@@ -2,6 +2,7 @@ package cat.itacademy.barcelonactiva.martos.sandra.s05.t03.services.impl;
 
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.repository.UserRepository;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.services.UserService;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

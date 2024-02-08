@@ -7,7 +7,6 @@ import org.hibernate.annotations.SourceType;
 
 import java.sql.Timestamp;
 
-
 @Getter
 @Setter
 @NoArgsConstructor

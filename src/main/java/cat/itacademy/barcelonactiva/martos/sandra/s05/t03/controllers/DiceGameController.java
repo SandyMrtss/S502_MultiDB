@@ -13,10 +13,10 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:9000")
 @RestController
 @RequestMapping("api/v1/diceGame/players")
-public class Controller {
+public class DiceGameController {
     private PlayerService playerService;
 
-    public Controller(PlayerService playerService){
+    public DiceGameController(PlayerService playerService){
         this.playerService = playerService;
     }
 

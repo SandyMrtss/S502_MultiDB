@@ -1,6 +1,9 @@
 package cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,14 +16,11 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 @Entity
 @Table(name = "user")
 public class User implements UserDetails {
     public enum Role {
-        USER,
-        ADMIN
+        USER
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
