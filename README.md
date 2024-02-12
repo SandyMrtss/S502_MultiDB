@@ -59,7 +59,7 @@ spring.data.mongodb.database=<databaseName>
 spring.data.mongodb.auto-index-creation=true
 
 #swagger (openAPI) config
-springdoc.api-docs.path=/flor/v1/api-docs
+springdoc.api-docs.path=/api/v1/diceGame/api-docs
 springdoc.swagger-ui.operationsSorter=method
 ```
 ## 3. Functionality <a name="func"></a>
