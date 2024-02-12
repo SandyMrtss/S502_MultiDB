@@ -1,7 +1,7 @@
 package cat.itacademy.barcelonactiva.martos.sandra.s05.t03.controllers;
 
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.dto.*;
-import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.dto.Request.PlayerDTORequest;
+import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.dto.request.PlayerDTORequest;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.services.*;
 
 import org.springframework.http.HttpStatus;

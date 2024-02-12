@@ -1,6 +1,6 @@
 package cat.itacademy.barcelonactiva.martos.sandra.s05.t03.integrationtests;
 
-import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.dto.Request.PlayerDTORequest;
+import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.dto.request.PlayerDTORequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.*;

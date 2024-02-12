@@ -5,7 +5,7 @@ import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.exceptions.PlayerNotFo
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.domain.PlayerEntity;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.dto.GameDTO;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.dto.PlayerDTO;
-import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.dto.Request.PlayerDTORequest;
+import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.dto.request.PlayerDTORequest;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.repository.PlayerRepository;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.services.GameService;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.services.PlayerService;
