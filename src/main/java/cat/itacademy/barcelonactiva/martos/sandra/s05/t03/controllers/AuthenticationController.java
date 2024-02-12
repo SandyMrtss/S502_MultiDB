@@ -1,7 +1,7 @@
 package cat.itacademy.barcelonactiva.martos.sandra.s05.t03.controllers;
 
-import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.dto.Request.SignInRequest;
-import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.dto.Request.SignUpRequest;
+import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.dto.request.SignInRequest;
+import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.dto.request.SignUpRequest;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.model.dto.response.JwtAuthenticationResponse;
 import cat.itacademy.barcelonactiva.martos.sandra.s05.t03.services.AuthenticationService;
 
