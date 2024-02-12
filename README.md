@@ -15,9 +15,9 @@ This API uses both MySQL and MongoDB for persistence. On [S502_MySQL](https://gi
 3. [Functionality](#func)
    1. [Security](#sec)
    2. [Make a Request](#requests)
-5. [Testing](#testing)
-6. [Built with](#built)
-7. [Author](#author)
+4. [Testing](#testing)
+5. [Built with](#built)
+6. [Author](#author)
 
 ## 1. Requirements <a name="req"></a>
 - Java Development Kit (JDK) 8 or higher
@@ -169,7 +169,7 @@ spring.data.mongodb.auto-index-creation=true
 ```
 ## 5. Built with <a name="built"></a>
 - [Maven](https://maven.apache.org/) - Dependency manager
-- [Spring Security](https://spring.io/projects/spring-security/) - Security for SignUp and SignIn
+- [Spring Security](https://spring.io/projects/spring-security/) - Authentication and authorization 
 - [MySQL Database](https://www.mysql.com/) - Persistence
 - [MongoDB](https://www.mongodb.com/es) - Persistence
 - [Junit](https://junit.org/junit5/) - Testing
